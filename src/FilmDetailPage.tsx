@@ -1,4 +1,4 @@
-import {Await, NavLink, useLoaderData} from "react-router-dom";
+import {Await, Link, useLoaderData} from "react-router-dom";
 import {fetchFilm, fetchPersonByUrl} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
@@ -20,7 +20,7 @@ export async function filmDetailPageLoader({params}) {
 
 const FilmPersonCardLoading = () => {
     return <li>
-        <NavLink to={`/persons`}>Loading…</NavLink>
+        <Link to={`/persons`}>Loading…</Link>
     </li>;
 }
 
@@ -28,7 +28,7 @@ const FilmPersonCard = ({person}: { person: Person }) => {
     const id = getResourceIdFromUrl(person.url);
 
     return <li>
-        <NavLink to={`/persons/${id}`}>{person.name}</NavLink>
+        <Link to={`/persons/${id}`}>{person.name}</Link>
     </li>;
 }
 

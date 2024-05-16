@@ -1,4 +1,4 @@
-import {Await, NavLink, useLoaderData} from "react-router-dom";
+import {Await, Link, useLoaderData} from "react-router-dom";
 import {fetchFilmByUrl, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import React from "react";
@@ -19,13 +19,13 @@ export async function personDetailPageLoader({params}) {
 
 const PersonFilmCardLoading = () => {
     return <li>
-        <NavLink to={`/films`}>Loading…</NavLink>
+        <Link to={`/films`}>Loading…</Link>
     </li>;
 }
 
 const PersonFilmCard = ({film}: { film: Film }) => {
     return <li>
-        <NavLink to={`/films/${film.episode_id}`}>{film.title}</NavLink>
+        <Link to={`/films/${film.episode_id}`}>{film.title}</Link>
     </li>;
 }
 
