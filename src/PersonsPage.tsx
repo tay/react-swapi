@@ -27,6 +27,7 @@ const PersonsPage = () => {
         <Helmet><title>SWAPI | People</title></Helmet>
         <Navbar/>
 
+        <h1>People</h1>
         <ul>
             {persons.map((person, i) =>
                 <PersonsListItem person={person} key={i}/>)}

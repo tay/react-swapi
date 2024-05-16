@@ -16,6 +16,7 @@ const FilmsPage = () => {
         <Helmet><title>SWAPI | Films</title></Helmet>
         <Navbar/>
 
+        <h1>Films</h1>
         <ul>
             {films.map(film => {
                     const filmId = film.episode_id;
