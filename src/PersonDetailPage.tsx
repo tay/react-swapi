@@ -20,7 +20,7 @@ const PersonFilmsCard = ({person}: { person: Person }) => {
 
 const PersonDetailPage = () => {
     // @ts-ignore
-    const person: Person = useLoaderData();
+    const person = useLoaderData() as Person;
 
     return <div>
         <Navbar/>

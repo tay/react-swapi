@@ -20,7 +20,7 @@ const PersonsListItem = ({person}: { person: Person }) => {
 
 const PersonsPage = () => {
     // @ts-ignore
-    const persons: Person[] = useLoaderData().results as Array<Person>;
+    const persons: Person[] = useLoaderData().results as Person[];
 
     return <div>
         <Navbar/>

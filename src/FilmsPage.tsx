@@ -9,7 +9,7 @@ export function filmsPageLoader() {
 
 const FilmsPage = () => {
     // @ts-ignore
-    const films: Films[] = useLoaderData().results as Array<Film>;
+    const films = useLoaderData().results as Film[];
 
     return <div>
         <Navbar/>
