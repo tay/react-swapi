@@ -1,14 +1,17 @@
-import {Link, useLoaderData} from "react-router-dom";
-import {fetchPersons} from "./api";
 import React from "react";
+import {Link, useLoaderData} from "react-router-dom";
+
+import {getResourceIdFromUrl} from "./utils";
+import {fetchPersons} from "./api";
 import Navbar from "./Navbar";
+
 
 export function personsPageLoader() {
     return fetchPersons();
 }
 
 const PersonsListItem = ({person}: { person: Person }) => {
-    const personId = person.url.split('/').slice(-2, -1);
+    const personId = getResourceIdFromUrl(person.url);
 
     return <li>
         <Link to={`/persons/${personId}`}>{person.name}</Link>

@@ -14,10 +14,12 @@ const FilmsPage = () => {
     return <div>
         <Navbar/>
         <ul>
-            {films.map((film, i) =>
-                <li>
-                    <Link to={`/films/${film.episode_id}`}>{film.title}</Link>
-                </li>
+            {films.map(film => {
+                const filmId = film.episode_id;
+                return <li key={filmId}>
+                        <Link to={`/films/${filmId}`}>{film.title}</Link>
+                    </li>;
+                }
             )}
         </ul>
     </div>
