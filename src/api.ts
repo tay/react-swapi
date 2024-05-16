@@ -1,12 +1,11 @@
+import {getResourceIdFromUrl} from "./utils";
+
 const API_URL = 'https://swapi.dev/api'
 
 const films = new Map<string, Film>();
 const persons = new Map<string, Person>();
 
-const fetchFilms = async () => {
-    const response = await fetch(`${API_URL}/films`);
-    return response;
-}
+
 
 // @ts-ignore
 const fetchFilm = async (filmId: string): Promise<Film> => {
@@ -19,8 +18,13 @@ const fetchFilm = async (filmId: string): Promise<Film> => {
     return film;
 }
 
-const fetchPersons = async () => {
-    const response = await fetch(`${API_URL}/people`)
+const fetchFilmByUrl = async (filmUrl: string): Promise<Film> => {
+    const filmId = getResourceIdFromUrl(filmUrl);
+    return fetchFilm(filmId);
+}
+
+const fetchFilms = async () => {
+    const response = await fetch(`${API_URL}/films`);
     return response;
 }
 
@@ -36,9 +40,22 @@ const fetchPerson = async (personId: string): Promise<Person> => {
     return person;
 }
 
+const fetchPersonByUrl = async (personUrl: string): Promise<Person> => {
+    const personId = getResourceIdFromUrl(personUrl);
+    return fetchPerson(personId);
+}
+
+const fetchPersons = async () => {
+    const response = await fetch(`${API_URL}/people`)
+    return response;
+}
+
+
 export {
-    fetchFilms,
     fetchFilm,
-    fetchPersons,
+    fetchFilmByUrl,
+    fetchFilms,
     fetchPerson,
+    fetchPersonByUrl,
+    fetchPersons,
 }

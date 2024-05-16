@@ -1,5 +1,5 @@
 import {Await, NavLink, useLoaderData} from "react-router-dom";
-import {fetchFilm, fetchPerson} from "./api";
+import {fetchFilm, fetchPersonByUrl} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
 import React from "react";
@@ -9,8 +9,7 @@ import {Helmet} from "react-helmet-async";
 export async function filmDetailPageLoader({params}) {
     const film = await fetchFilm(params.filmId);
     const persons = film.characters.map(personUrl => {
-        const id = getResourceIdFromUrl(personUrl);
-        return fetchPerson(id);
+        return fetchPersonByUrl(personUrl);
     });
 
     return {
