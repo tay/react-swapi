@@ -1,7 +1,7 @@
 const API_URL = 'https://swapi.dev/api'
 
-const films = new Map<number, Film>;
-const persons = new Map<number, Person>;
+const films = new Map<number, Film>();
+const persons = new Map<number, Person>();
 
 const fetchFilms = async () => {
     const response = await fetch(`${API_URL}/films`);

@@ -4,6 +4,7 @@ import {Link, useLoaderData} from "react-router-dom";
 import {getResourceIdFromUrl} from "./utils";
 import {fetchPersons} from "./api";
 import Navbar from "./Navbar";
+import {Helmet} from "react-helmet-async";
 
 
 export function personsPageLoader() {
@@ -23,7 +24,9 @@ const PersonsPage = () => {
     const persons: Person[] = useLoaderData().results as Person[];
 
     return <div>
+        <Helmet><title>SWAPI | People</title></Helmet>
         <Navbar/>
+
         <ul>
             {persons.map((person, i) =>
                 <PersonsListItem person={person} key={i}/>)}

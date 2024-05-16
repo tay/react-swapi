@@ -3,6 +3,7 @@ import {fetchFilm, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
 import React, {useEffect, useState} from "react";
+import { Helmet } from "react-helmet-async";
 
 // @ts-ignore
 export function personDetailPageLoader({params}) {
@@ -30,7 +31,9 @@ const PersonDetailPage = () => {
     const person = useLoaderData() as Person;
 
     return <div>
+        <Helmet><title>SWAPI | {person.name}</title></Helmet>
         <Navbar/>
+
         <h1>{person.name}</h1>
         Eye color: {person.eye_color}
         <div>

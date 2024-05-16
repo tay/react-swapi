@@ -3,6 +3,7 @@ import {fetchFilm, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
 import React, {useEffect, useState} from "react";
+import {Helmet} from "react-helmet-async";
 
 // @ts-ignore
 export function filmDetailPageLoader({params}) {
@@ -32,7 +33,9 @@ const FilmDetailPage = () => {
     const film = useLoaderData() as Film;
 
     return <div>
+        <Helmet><title>SWAPI | {film.title}</title></Helmet>
         <Navbar/>
+
         <h1>{film.title}</h1>
         <p>{film.opening_crawl}</p>
         <div>
