@@ -37,6 +37,7 @@ const FilmDetailPage = () => {
         <h1>{film.title}</h1>
         <p>{film.opening_crawl}</p>
         <div>
+            <h3>Characters</h3>
             <ul>
                 {film.characters.map((personUrl) => {
                     const personId = getResourceIdFromUrl(personUrl);

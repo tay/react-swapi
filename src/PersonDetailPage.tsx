@@ -1,21 +1,31 @@
 import {Link, useLoaderData} from "react-router-dom";
-import {fetchPerson} from "./api";
+import {fetchFilm, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 // @ts-ignore
 export function personDetailPageLoader({params}) {
     return fetchPerson(params.personId);
 }
 
-const PersonFilmsCard = ({person}: { person: Person }) => {
-    return <ul>
-        {person.films.map((filmUrl) => {
-            const filmId = getResourceIdFromUrl(filmUrl);
-            return <li key={filmId}><Link to={`/films/${filmId}`}>Film #{filmId}</Link></li>;
-        })}
-    </ul>
+const PersonFilmCard = ({ filmId }: { filmId: number }) => {
+    const [film, setFilm] = useState<Film | null>(null);
+
+    useEffect(() => {
+        fetchFilm(filmId).then(async response => {
+            const json = await response.json();
+            setFilm(json);
+        });
+    }, [filmId]);
+
+    if (!film) {
+        return <li><Link to={`/films/${filmId}`}>Loading…</Link></li>
+    }
+
+    return <li>
+        <Link to={`/films/${filmId}`}>{film.title}</Link>
+    </li>;
 }
 
 const PersonDetailPage = () => {
@@ -26,7 +36,15 @@ const PersonDetailPage = () => {
         <Navbar/>
         <h1>{person.name}</h1>
         Eye color: {person.eye_color}
-        <PersonFilmsCard person={person}/>
+        <div>
+            <h3>Films</h3>
+            <ul>
+                {person.films.map((filmUrl) => {
+                    const filmId = getResourceIdFromUrl(filmUrl);
+                    return <PersonFilmCard key={filmId} filmId={filmId} />
+                })}
+            </ul>
+        </div>
     </div>
 }
 
