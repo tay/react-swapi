@@ -1,4 +1,4 @@
-import {Link, useLoaderData} from "react-router-dom";
+import {NavLink, useLoaderData} from "react-router-dom";
 import {fetchFilm, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
@@ -18,11 +18,11 @@ const PersonFilmCard = ({filmId}: { filmId: number }) => {
     }, [filmId]);
 
     if (!film) {
-        return <li><Link to={`/films/${filmId}`}>Loading…</Link></li>
+        return <li><NavLink to={`/films/${filmId}`}>Loading…</NavLink></li>
     }
 
     return <li>
-        <Link to={`/films/${filmId}`}>{film.title}</Link>
+        <NavLink to={`/films/${filmId}`}>{film.title}</NavLink>
     </li>;
 }
 

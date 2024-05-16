@@ -1,4 +1,4 @@
-import {Link, useLoaderData} from "react-router-dom";
+import {NavLink, useLoaderData} from "react-router-dom";
 import {fetchFilms} from "./api";
 import React from "react";
 import { Helmet } from 'react-helmet-async';
@@ -21,7 +21,7 @@ const FilmsPage = () => {
             {films.map(film => {
                     const filmId = film.episode_id;
                     return <li key={filmId}>
-                        <Link to={`/films/${filmId}`}>{film.title}</Link>
+                        <NavLink to={`/films/${filmId}`}>{film.title}</NavLink>
                     </li>;
                 }
             )}

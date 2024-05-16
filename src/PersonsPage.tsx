@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useLoaderData} from "react-router-dom";
+import {NavLink, useLoaderData} from "react-router-dom";
 
 import {getResourceIdFromUrl} from "./utils";
 import {fetchPersons} from "./api";
@@ -15,7 +15,7 @@ const PersonsListItem = ({person}: { person: Person }) => {
     const personId = getResourceIdFromUrl(person.url);
 
     return <li>
-        <Link to={`/persons/${personId}`}>{person.name}</Link>
+        <NavLink to={`/persons/${personId}`}>{person.name}</NavLink>
     </li>
 }
 
