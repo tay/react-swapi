@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createRoot } from 'react-dom/client';
+import {createRoot} from 'react-dom/client';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -13,27 +13,27 @@ import PersonDetailPage, {personDetailPageLoader} from "./PersonDetailPage";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <FilmsPage />,
+        element: <FilmsPage/>,
         loader: filmsPageLoader,
     },
     {
         path: "/films/:filmId",
-        element: <FilmDetailPage />,
+        element: <FilmDetailPage/>,
         loader: filmDetailPageLoader,
     },
     {
         path: "/persons",
-        element: <PersonsPage />,
+        element: <PersonsPage/>,
         loader: personsPageLoader,
     },
     {
         path: "/persons/:personId",
-        element: <PersonDetailPage />,
+        element: <PersonDetailPage/>,
         loader: personDetailPageLoader,
     }
 ]);
 
 // @ts-ignore
 createRoot(document.getElementById("root")).render(
-    <RouterProvider router={router} />
+    <RouterProvider router={router}/>
 );

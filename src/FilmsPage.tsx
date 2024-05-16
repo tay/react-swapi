@@ -15,8 +15,8 @@ const FilmsPage = () => {
         <Navbar/>
         <ul>
             {films.map(film => {
-                const filmId = film.episode_id;
-                return <li key={filmId}>
+                    const filmId = film.episode_id;
+                    return <li key={filmId}>
                         <Link to={`/films/${filmId}`}>{film.title}</Link>
                     </li>;
                 }

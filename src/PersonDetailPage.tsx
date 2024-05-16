@@ -9,7 +9,7 @@ export function personDetailPageLoader({params}) {
     return fetchPerson(params.personId);
 }
 
-const PersonFilmCard = ({ filmId }: { filmId: number }) => {
+const PersonFilmCard = ({filmId}: { filmId: number }) => {
     const [film, setFilm] = useState<Film | null>(null);
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const PersonDetailPage = () => {
             <ul>
                 {person.films.map((filmUrl) => {
                     const filmId = getResourceIdFromUrl(filmUrl);
-                    return <PersonFilmCard key={filmId} filmId={filmId} />
+                    return <PersonFilmCard key={filmId} filmId={filmId}/>
                 })}
             </ul>
         </div>
