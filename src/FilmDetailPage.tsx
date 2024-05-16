@@ -1,8 +1,8 @@
-import {NavLink, useLoaderData} from "react-router-dom";
-import {fetchFilm, fetchPerson} from "./api";
+import {NavLink, useFetcher, useLoaderData} from "react-router-dom";
+import {fetchFilm} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Helmet} from "react-helmet-async";
 
 // @ts-ignore
@@ -11,20 +11,21 @@ export function filmDetailPageLoader({params}) {
 }
 
 const FilmPersonCard = ({personId}: { personId: number }) => {
-    const [person, setPerson] = useState<Person | null>(null);
+    const fetcher = useFetcher();
 
     useEffect(() => {
-        fetchPerson(personId).then(result =>
-            setPerson(result)
-        );
-    }, [personId]);
+        if (fetcher.state === "idle" && !fetcher.data) {
+            fetcher.load(`/persons/${personId}`);
+        }
+    }, [fetcher, personId]);
 
-    if (!person) {
+
+    if (!fetcher.data) {
         return <li><NavLink to={`/persons/${personId}`}>Loading…</NavLink></li>
     }
 
     return <li>
-        <NavLink to={`/persons/${personId}`}>{person.name}</NavLink>
+        <NavLink to={`/persons/${personId}`}>{fetcher.data.name}</NavLink>
     </li>;
 }
 
