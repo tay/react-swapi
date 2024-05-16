@@ -1,36 +1,41 @@
-import {NavLink, useFetcher, useLoaderData} from "react-router-dom";
-import {fetchPerson} from "./api";
+import {Await, NavLink, useLoaderData} from "react-router-dom";
+import {fetchFilm, fetchPerson} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
-import React, {useEffect} from "react";
-import { Helmet } from "react-helmet-async";
+import React from "react";
+import {Helmet} from "react-helmet-async";
 
 // @ts-ignore
-export function personDetailPageLoader({params}) {
-    return fetchPerson(params.personId);
+export async function personDetailPageLoader({params}) {
+    const person = await fetchPerson(params.personId);
+    const films = person.films.map(filmUrl => {
+        const id = getResourceIdFromUrl(filmUrl);
+        return fetchFilm(id);
+    });
+
+    return {
+        person: person,
+        films: films,
+    };
 }
 
-const PersonFilmCard = ({filmId}: { filmId: number }) => {
-    const fetcher = useFetcher();
-
-    useEffect(() => {
-        if (fetcher.state === "idle" && !fetcher.data) {
-            fetcher.load(`/films/${filmId}`);
-        }
-    }, [fetcher, filmId]);
-
-    if (!fetcher.data) {
-        return <li><NavLink to={`/films/${filmId}`}>Loading…</NavLink></li>
-    }
-
+const PersonFilmCardLoading = () => {
     return <li>
-        <NavLink to={`/films/${filmId}`}>{fetcher.data.title}</NavLink>
+        <NavLink to={`/films`}>Loading…</NavLink>
+    </li>;
+}
+
+const PersonFilmCard = ({film}: { film: Film }) => {
+    return <li>
+        <NavLink to={`/films/${film.episode_id}`}>{film.title}</NavLink>
     </li>;
 }
 
 const PersonDetailPage = () => {
     // @ts-ignore
-    const person = useLoaderData() as Person;
+    const {person} = useLoaderData() as { person: Person };
+    // @ts-ignore
+    const {films} = useLoaderData() as { films: Promise<Film>[] };
 
     return <div>
         <Helmet><title>SWAPI | {person.name}</title></Helmet>
@@ -41,9 +46,15 @@ const PersonDetailPage = () => {
         <div>
             <h3>Films</h3>
             <ul>
-                {person.films.map((filmUrl) => {
-                    const filmId = getResourceIdFromUrl(filmUrl);
-                    return <PersonFilmCard key={filmId} filmId={filmId}/>
+                {films.map((film: Promise<Film>, i) => {
+                    return <React.Suspense
+                        fallback={<PersonFilmCardLoading/>}
+                        key={i}
+                    >
+                        <Await resolve={film}>
+                            {(film) => <PersonFilmCard film={film}/>}
+                        </Await>
+                    </React.Suspense>
                 })}
             </ul>
         </div>
