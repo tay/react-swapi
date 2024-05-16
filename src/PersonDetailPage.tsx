@@ -13,10 +13,7 @@ const PersonFilmCard = ({filmId}: { filmId: number }) => {
     const [film, setFilm] = useState<Film | null>(null);
 
     useEffect(() => {
-        fetchFilm(filmId).then(async response => {
-            const json = await response.json();
-            setFilm(json);
-        });
+        fetchFilm(filmId).then(result => setFilm(result))
     }, [filmId]);
 
     if (!film) {
