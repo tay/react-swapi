@@ -1,12 +1,16 @@
+import React from "react";
 import {Await, Link, useLoaderData} from "react-router-dom";
+import {Helmet} from "react-helmet-async";
+
 import {fetchFilm, fetchPersonByUrl} from "./api";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
-import React from "react";
-import {Helmet} from "react-helmet-async";
 
-// @ts-ignore
-export async function filmDetailPageLoader({params}) {
+
+type FilmDetailPageLoaderType = { film: Film; persons: Promise<Person>[] }
+
+// @ts-expect-error Params
+export async function filmDetailPageLoader({params}): Promise<FilmDetailPageLoaderType> {
     const film = await fetchFilm(params.filmId);
     const persons = film.characters.map(personUrl => {
         return fetchPersonByUrl(personUrl);
@@ -33,10 +37,7 @@ const FilmPersonCard = ({person}: { person: Person }) => {
 }
 
 const FilmDetailPage = () => {
-    // @ts-ignore
-    const {film} = useLoaderData() as { film: Film };
-    // @ts-ignore
-    const {persons} = useLoaderData() as { persons: Promise<Person>[] };
+    const {film, persons} = useLoaderData() as FilmDetailPageLoaderType;
 
     return <div>
         <Helmet><title>SWAPI | {film.title}</title></Helmet>

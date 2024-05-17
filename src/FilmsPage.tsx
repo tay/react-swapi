@@ -1,16 +1,17 @@
-import {Link, useLoaderData} from "react-router-dom";
-import {fetchFilms} from "./api";
 import React from "react";
 import { Helmet } from 'react-helmet-async';
+import {Link, useLoaderData} from "react-router-dom";
+
+import {fetchFilms} from "./api";
 import Navbar from "./Navbar";
 
+type FilmsPageLoaderType = { results: Film[] };
 export function filmsPageLoader() {
     return fetchFilms();
 }
 
 const FilmsPage = () => {
-    // @ts-ignore
-    const films = useLoaderData().results as Film[];
+    const films = (useLoaderData() as FilmsPageLoaderType).results;
 
     return <div>
         <Helmet><title>SWAPI | Films</title></Helmet>

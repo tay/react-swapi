@@ -1,14 +1,15 @@
-import * as React from "react";
+import React from "react";
 import {createRoot} from 'react-dom/client';
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
+import {HelmetProvider} from "react-helmet-async";
+
 import FilmsPage, {filmsPageLoader} from "./FilmsPage";
 import FilmDetailPage, {filmDetailPageLoader} from "./FilmDetailPage";
 import PersonsPage, {personsPageLoader} from "./PersonsPage";
 import PersonDetailPage, {personDetailPageLoader} from "./PersonDetailPage";
-import { HelmetProvider } from "react-helmet-async";
 
 
 const router = createBrowserRouter([
@@ -34,9 +35,9 @@ const router = createBrowserRouter([
     }
 ]);
 
-// @ts-ignore
-createRoot(document.getElementById("root")).render(
-    <HelmetProvider>
-        <RouterProvider router={router} />
-    </HelmetProvider>
-);
+createRoot(document.getElementById("root")!)
+    .render(
+        <HelmetProvider>
+            <RouterProvider router={router}/>
+        </HelmetProvider>
+    );

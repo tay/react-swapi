@@ -1,12 +1,13 @@
 import React from "react";
 import {Link, useLoaderData} from "react-router-dom";
+import {Helmet} from "react-helmet-async";
 
 import {getResourceIdFromUrl} from "./utils";
 import {fetchPersons} from "./api";
 import Navbar from "./Navbar";
-import {Helmet} from "react-helmet-async";
 
 
+type PersonPageLoaderType = { results: Person[] };
 export function personsPageLoader() {
     return fetchPersons();
 }
@@ -20,8 +21,7 @@ const PersonsListItem = ({person}: { person: Person }) => {
 }
 
 const PersonsPage = () => {
-    // @ts-ignore
-    const persons: Person[] = useLoaderData().results as Person[];
+    const persons = (useLoaderData() as PersonPageLoaderType).results;
 
     return <div>
         <Helmet><title>SWAPI | People</title></Helmet>

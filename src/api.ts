@@ -2,12 +2,10 @@ import {getResourceIdFromUrl} from "./utils";
 
 const API_URL = 'https://swapi.dev/api'
 
+// TODO: Memoize not explicitly
 const films = new Map<string, Film>();
 const persons = new Map<string, Person>();
 
-
-
-// @ts-ignore
 const fetchFilm = async (filmId: string): Promise<Film> => {
     if (films.has(filmId)) {
         return films.get(filmId) as Film;
@@ -28,7 +26,6 @@ const fetchFilms = async () => {
     return response;
 }
 
-// @ts-ignore
 const fetchPerson = async (personId: string): Promise<Person> => {
     if (persons.has(personId)) {
         return persons.get(personId) as Person;
