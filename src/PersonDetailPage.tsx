@@ -22,7 +22,7 @@ export async function personDetailPageLoader({params}): PersonDetailPageLoaderTy
 
 const PersonFilmCardLoading = () => {
     return <li>
-        <Link to={`/films`}>Loading…</Link>
+        <div className="loading">Loading…</div>
     </li>;
 }
 

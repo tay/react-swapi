@@ -24,7 +24,7 @@ export async function filmDetailPageLoader({params}): Promise<FilmDetailPageLoad
 
 const FilmPersonCardLoading = () => {
     return <li>
-        <Link to={`/persons`}>Loading…</Link>
+        <div className="loading">Loading…</div>
     </li>;
 }
 
@@ -54,7 +54,7 @@ const FilmDetailPage = () => {
                         key={i}
                     >
                         <Await resolve={person}>
-                            {(person) => <FilmPersonCard person={person} />}
+                            {(person) => <FilmPersonCard person={person}/>}
                         </Await>
                     </React.Suspense>
                 })}
