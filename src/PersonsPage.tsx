@@ -1,4 +1,3 @@
-import React from "react";
 import {Link, useLoaderData} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 
@@ -8,6 +7,7 @@ import Navbar from "./Navbar";
 
 
 type PersonPageLoaderType = { results: Person[] };
+
 export function personsPageLoader() {
     return getPersons();
 }

@@ -1,5 +1,3 @@
-import React from "react";
-import {createRoot} from 'react-dom/client';
 import {
     createBrowserRouter,
     RouterProvider,
@@ -35,9 +33,10 @@ const router = createBrowserRouter([
     }
 ]);
 
-createRoot(document.getElementById("root")!)
-    .render(
-        <HelmetProvider>
-            <RouterProvider router={router}/>
-        </HelmetProvider>
-    );
+const App = () => {
+    return <HelmetProvider>
+        <RouterProvider router={router}/>
+    </HelmetProvider>
+}
+
+export default App;
