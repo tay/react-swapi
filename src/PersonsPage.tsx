@@ -3,13 +3,13 @@ import {Link, useLoaderData} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 
 import {getResourceIdFromUrl} from "./utils";
-import {fetchPersons} from "./api";
+import {getPersons} from "./data";
 import Navbar from "./Navbar";
 
 
 type PersonPageLoaderType = { results: Person[] };
 export function personsPageLoader() {
-    return fetchPersons();
+    return getPersons();
 }
 
 const PersonsListItem = ({person}: { person: Person }) => {

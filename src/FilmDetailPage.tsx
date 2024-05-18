@@ -2,7 +2,7 @@ import React from "react";
 import {Await, Link, useLoaderData} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
 
-import {fetchFilm, fetchPersonByUrl} from "./api";
+import {getFilm, getPersonByUrl} from "./data";
 import Navbar from "./Navbar";
 import {getResourceIdFromUrl} from "./utils";
 
@@ -11,10 +11,8 @@ type FilmDetailPageLoaderType = { film: Film; persons: Promise<Person>[] }
 
 // @ts-expect-error Params
 export async function filmDetailPageLoader({params}): Promise<FilmDetailPageLoaderType> {
-    const film = await fetchFilm(params.filmId);
-    const persons = film.characters.map(personUrl => {
-        return fetchPersonByUrl(personUrl);
-    });
+    const film = await getFilm(params.filmId);
+    const persons = film.characters.map(personUrl => getPersonByUrl(personUrl));
 
     return {
         film,
@@ -22,13 +20,13 @@ export async function filmDetailPageLoader({params}): Promise<FilmDetailPageLoad
     };
 }
 
-const FilmPersonCardLoading = () => {
+const FilmPersonItemLoading = () => {
     return <li>
         <div className="loading">Loading…</div>
     </li>;
 }
 
-const FilmPersonCard = ({person}: { person: Person }) => {
+const FilmPersonItem = ({person}: { person: Person }) => {
     const id = getResourceIdFromUrl(person.url);
 
     return <li>
@@ -50,11 +48,11 @@ const FilmDetailPage = () => {
             <ul>
                 {persons.map((person: Promise<Person>, i) => {
                     return <React.Suspense
-                        fallback={<FilmPersonCardLoading/>}
+                        fallback={<FilmPersonItemLoading/>}
                         key={i}
                     >
                         <Await resolve={person}>
-                            {(person) => <FilmPersonCard person={person}/>}
+                            {(person) => <FilmPersonItem person={person}/>}
                         </Await>
                     </React.Suspense>
                 })}

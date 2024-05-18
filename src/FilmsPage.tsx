@@ -2,12 +2,12 @@ import React from "react";
 import { Helmet } from 'react-helmet-async';
 import {Link, useLoaderData} from "react-router-dom";
 
-import {fetchFilms} from "./api";
+import {getFilms} from "./data";
 import Navbar from "./Navbar";
 
 type FilmsPageLoaderType = { results: Film[] };
 export function filmsPageLoader() {
-    return fetchFilms();
+    return getFilms();
 }
 
 const FilmsPage = () => {

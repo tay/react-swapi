@@ -6,7 +6,7 @@ const API_URL = 'https://swapi.dev/api'
 const films = new Map<string, Film>();
 const persons = new Map<string, Person>();
 
-const fetchFilm = async (filmId: string): Promise<Film> => {
+const getFilm = async (filmId: string): Promise<Film> => {
     if (films.has(filmId)) {
         return films.get(filmId) as Film;
     }
@@ -16,17 +16,17 @@ const fetchFilm = async (filmId: string): Promise<Film> => {
     return film;
 }
 
-const fetchFilmByUrl = async (filmUrl: string): Promise<Film> => {
+const getFilmByUrl = async (filmUrl: string): Promise<Film> => {
     const filmId = getResourceIdFromUrl(filmUrl);
-    return fetchFilm(filmId);
+    return getFilm(filmId);
 }
 
-const fetchFilms = async () => {
+const getFilms = async () => {
     const response = await fetch(`${API_URL}/films`);
     return response;
 }
 
-const fetchPerson = async (personId: string): Promise<Person> => {
+const getPerson = async (personId: string): Promise<Person> => {
     if (persons.has(personId)) {
         return persons.get(personId) as Person;
     }
@@ -37,22 +37,22 @@ const fetchPerson = async (personId: string): Promise<Person> => {
     return person;
 }
 
-const fetchPersonByUrl = async (personUrl: string): Promise<Person> => {
+const getPersonByUrl = async (personUrl: string): Promise<Person> => {
     const personId = getResourceIdFromUrl(personUrl);
-    return fetchPerson(personId);
+    return getPerson(personId);
 }
 
-const fetchPersons = async () => {
+const getPersons = async () => {
     const response = await fetch(`${API_URL}/people`)
     return response;
 }
 
 
 export {
-    fetchFilm,
-    fetchFilmByUrl,
-    fetchFilms,
-    fetchPerson,
-    fetchPersonByUrl,
-    fetchPersons,
+    getFilm,
+    getFilmByUrl,
+    getFilms,
+    getPerson,
+    getPersonByUrl,
+    getPersons,
 }
