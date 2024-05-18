@@ -1,6 +1,7 @@
 import React from "react";
-import {Await, Link, useLoaderData} from "react-router-dom";
+import {Await, Link, LoaderFunctionArgs, useLoaderData} from "react-router-dom";
 import {Helmet} from "react-helmet-async";
+import invariant from "tiny-invariant";
 
 import {getFilm, getPersonByUrl} from "./data";
 import Navbar from "./Navbar";
@@ -9,8 +10,9 @@ import {getResourceIdFromUrl} from "./utils";
 
 type FilmDetailPageLoaderType = { film: Film; persons: Promise<Person>[] }
 
-// @ts-expect-error Params
-export async function filmDetailPageLoader({params}): Promise<FilmDetailPageLoaderType> {
+export async function filmDetailPageLoader({params}: LoaderFunctionArgs): Promise<FilmDetailPageLoaderType> {
+    invariant(params.filmId, "Expected params.filmId");
+
     const film = await getFilm(params.filmId);
     const persons = film.characters.map(personUrl => getPersonByUrl(personUrl));
 
